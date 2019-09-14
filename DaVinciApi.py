@@ -11,4 +11,3 @@ Id = file2.readline()
 file2.close()       
 
 c = Customer.Customer(Id, key)
-print(c.creditCardAccts[0].type)

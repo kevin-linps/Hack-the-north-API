@@ -1,6 +1,7 @@
 import requests
 import json
 import Account
+import Transaction
 
 class Customer:
 
@@ -10,6 +11,7 @@ class Customer:
         self.key = ApiKey
         self.getPersonalInfo()
         self.getAccounts()
+        self.getTransactions()
         
 
     def getPersonalInfo(self):
@@ -37,3 +39,20 @@ class Customer:
         
         self.bankAccts = [Account.BankAccount(data["result"]["bankAccounts"][i]) for i in range(len(data["result"]["bankAccounts"]))]        
         self.creditCardAccts = [Account.CreditCardAccount(data["result"]["creditCardAccounts"][i]) for i in range(len(data["result"]["creditCardAccounts"]))]
+
+    def getTransactions(self):
+
+        ## obtain customer account information from the API
+        response = requests.get('https://api.td-davinci.com/api/customers/' + self.ID + "/transactions",
+                                headers = { 'Authorization': self.key })
+        data = response.json()
+
+        self.transactions = []
+        self.transfers = []
+        for i in range(len(data["result"])):
+            if data["result"][i]["categoryTags"][0] in ["Food and Dining", "Shopping"]:
+                tr = Transaction.Transaction(data["result"][i])
+                self.transactions.append(tr)
+            elif data["result"][i]["categoryTags"][0] == "Transfer":
+                tr = Transaction.Transfer(data["result"][i])
+                self.transfers.append(tr)
