@@ -36,17 +36,19 @@ class Customer:
         response = requests.get('https://api.td-davinci.com/api/customers/' + self.ID + "/accounts",
                                 headers = { 'Authorization': self.key })
         data = response.json()
-        
+
+        ## store account information into arrays
         self.bankAccts = [Account.BankAccount(data["result"]["bankAccounts"][i]) for i in range(len(data["result"]["bankAccounts"]))]        
         self.creditCardAccts = [Account.CreditCardAccount(data["result"]["creditCardAccounts"][i]) for i in range(len(data["result"]["creditCardAccounts"]))]
 
     def getTransactions(self):
 
-        ## obtain customer account information from the API
+        ## obtain customer transfer information from the API
         response = requests.get('https://api.td-davinci.com/api/customers/' + self.ID + "/transactions",
                                 headers = { 'Authorization': self.key })
         data = response.json()
 
+        ## 
         self.transactions = []
         self.transfers = []
         for i in range(len(data["result"])):
@@ -56,3 +58,18 @@ class Customer:
             else:
                 tr = Transaction.Transfer(data["result"][i])
                 self.transfers.append(tr)
+
+    def sortTransactionsBy(self, Key):
+        
+        if Key == "category":
+            return sorted(self.transactions, key = lambda Transaction: Transaction.category)
+        elif Key == "country":
+            return sorted(self.transactions, key = lambda Transaction: Transaction.country)
+        elif Key == "region":
+            return sorted(self.transactions, key = lambda Transaction: Transaction.region)
+        elif Key == "source":
+            return sorted(self.transactions, key = lambda Transaction: Transaction.source)
+        elif Key == "amount":
+            return sorted(self.transactions, key = lambda Transaction: Transaction.amount)
+        else:
+            return sorted(self.transactions, key = lambda Transaction: Transaction.date)
