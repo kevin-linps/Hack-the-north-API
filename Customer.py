@@ -53,6 +53,6 @@ class Customer:
             if data["result"][i]["categoryTags"][0] in ["Food and Dining", "Shopping"]:
                 tr = Transaction.Transaction(data["result"][i])
                 self.transactions.append(tr)
-            elif data["result"][i]["categoryTags"][0] == "Transfer":
+            else:
                 tr = Transaction.Transfer(data["result"][i])
                 self.transfers.append(tr)
