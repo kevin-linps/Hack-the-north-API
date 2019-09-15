@@ -13,7 +13,7 @@ response = requests.post('https://api.td-davinci.com/api/raw-customer-data',
 response_data = response.json()
 
 ## store the IDs into text files
-file2 = open("Accts.txt", "w")
+file2 = open("CustomerId.txt", "w")
 for i in range(len(response_data["result"]["customers"])):
     file2.write(response_data["result"]["customers"][i]["id"])
     file2.write("\n")
@@ -29,7 +29,7 @@ n = 0
 
 coordinates = {}
 
-for i in range(int(len(Ids)/500)):
+for i in range(int(len(Ids)/5)):
     Ids[i] = Ids[i][:-1]
     c = Customer.Customer(Ids[i], key, True)
 
