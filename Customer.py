@@ -5,12 +5,17 @@ import Transaction
 
 class Customer:
 
-    def __init__(self, ID, ApiKey): 
-
+    def __init__(self, ID, ApiKey, survey = False):
+        
         self.ID = ID
         self.key = ApiKey
-        self.getPersonalInfo()
-        self.getAccounts()
+        self.survey = survey
+
+        ## don't obtain when we are surveying mass population
+        if survey == False:     
+            self.getPersonalInfo()
+            self.getAccounts()
+
         self.getTransactions()
         
 
@@ -48,14 +53,13 @@ class Customer:
                                 headers = { 'Authorization': self.key })
         data = response.json()
 
-        ## 
         self.transactions = []
         self.transfers = []
         for i in range(len(data["result"])):
             if data["result"][i]["categoryTags"][0] in ["Food and Dining", "Shopping"]:
-                tr = Transaction.Transaction(data["result"][i])
+                tr = Transaction.Transaction(data["result"][i], self.survey)
                 self.transactions.append(tr)
-            else:
+            elif self.survey == False:
                 tr = Transaction.Transfer(data["result"][i])
                 self.transfers.append(tr)
 
