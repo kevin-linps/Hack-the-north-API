@@ -2,7 +2,7 @@
 <html>
   <head>
         <link href="./google-maps.css" rel="stylesheet">
-
+        <script type="text/javascript" src="TD_API_JS.js"></script>
 
 
     <style>
@@ -15,8 +15,28 @@
 
     <title>Today's Date</title>
     <script>
-        let d = new Date();
-        alert("Fuck you");
+        //let d = jsonResponse.result.givenName;
+        var myInit = {
+    method: 'GET',
+    headers: {
+      'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDQlAiLCJ0ZWFtX2lkIjoiMDJkZTU0ZDQtY2ZkOC0zNGFkLThiNWYtYzZjODkwZDdjOTc5IiwiZXhwIjo5MjIzMzcyMDM2ODU0Nzc1LCJhcHBfaWQiOiI3ZjIwMDMyNy0xMjE1LTQ3NmUtODEwNy1jOWQzMmE3MGQ1M2QifQ.XsJpJCXbibxFPcS98rdsKa5mQFT4uK8XUwtZMycF_e8'
+    } 
+  };
+  var myRequest = new Request('https://api.td-davinci.com/api/customers/90f54a9f-9112-451b-b2f9-e5de6b16e0b0', myInit);
+  var jsonResponse ='test';
+  var uluru;
+
+
+  function myFunc() {
+  fetch(myRequest)
+    .then(response => response.json())
+    .then(json => {uluru = {lat: json.result.addresses.principalResidence.latitude, lng: json.result.addresses.principalResidence.longitude};})
+    .then(value => (alert("goodbye")));
+    .then()
+}
+myFunc();
+//alert(jsonResponse);
+
     </script>
   </head>
   <body>
@@ -24,10 +44,11 @@
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
+//var uluru = {lat: -50.344, lng: 231.036};
 // Initialize and add the map
 function initMap() {
   // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
+   //uluru = {lat: -25.344, lng: 131.036};
   // The map, centered at Uluru
   var map = new google.maps.Map(
       document.getElementById('map'), {zoom: 4, center: uluru});
