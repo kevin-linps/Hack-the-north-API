@@ -10,3 +10,24 @@ html, body {
     margin: 0;
     padding: 0;
     }
+
+
+    H1 {
+        color: white;
+        font-family: "Arial";
+        background: url(http://www.wcyr.ca/wp-content/uploads/2015/03/td-bank-logo.png);
+        background-position: left left;
+        margin-left: 10%;
+        margin-right: 10%;
+        background-size: 10% auto;
+        background-repeat: no-repeat;
+    }
+
+    #map {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    
+    body {
+        background-color: green;
+    }
