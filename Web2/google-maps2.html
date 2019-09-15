@@ -16,24 +16,22 @@
     <title>Today's Date</title>
     <script>
         //let d = jsonResponse.result.givenName;
-        var myInit = {
-    method: 'GET',
+  var myInit = {
+    body: "continuationToken":,
+    method: 'POST',
     headers: {
       'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDQlAiLCJ0ZWFtX2lkIjoiMDJkZTU0ZDQtY2ZkOC0zNGFkLThiNWYtYzZjODkwZDdjOTc5IiwiZXhwIjo5MjIzMzcyMDM2ODU0Nzc1LCJhcHBfaWQiOiI3ZjIwMDMyNy0xMjE1LTQ3NmUtODEwNy1jOWQzMmE3MGQ1M2QifQ.XsJpJCXbibxFPcS98rdsKa5mQFT4uK8XUwtZMycF_e8'
     } 
   };
-  var myRequest = new Request('https://api.td-davinci.com/api/customers/abea2e58-13aa-4f74-8816-4da6960fe2bf/transactions', myInit);
+  var myRequest = new Request('https://api.td-davinci.com/api/raw-customer-data', myInit);
   var jsonResponse ='test';
-  var uluru = [];
+  var uluru;
 
 
   function myFunc() {
   fetch(myRequest)
     .then(response => response.json())
-    .then(json => {
-    for (i = 0; i < 100; i++) {
-      uluru[i] = {lat: json.result[i].locationLatitude, lng: json.result[i].locationLongitude};
-    }})
+    .then(json => {uluru = {lat: json.result.addresses.principalResidence.latitude, lng: json.result.addresses.principalResidence.longitude};})
     .then(value => initMap())
     .then(value => alert("hello"))
     
@@ -55,14 +53,9 @@ function initMap() {
    //uluru = {lat: -25.344, lng: 131.036};
   // The map, centered at Uluru
   var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru[0]});
-  
-  var marker = [];
-  for (i = 0; i < 100; i++) {
-    marker[i] = new google.maps.Marker({position: uluru[i], map: map});
-  }
+      document.getElementById('map'), {zoom: 4, center: uluru});
   // The marker, positioned at Uluru
-
+  var marker = new google.maps.Marker({position: uluru, map: map});
 }
     </script>
     <!--Load the API from the specified URL
