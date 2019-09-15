@@ -19,8 +19,11 @@ html, body {
         background-position: left left;
         margin-left: 10%;
         margin-right: 10%;
+        margin-top: 4%;
+        margin-bottom: 1%;
         padding-left: 6%;
         padding-top: 0.5vw;
+        padding-bottom: 0%;
         height: 6vw;
         background-size: 5vw 5vw;
         background-repeat: no-repeat;
@@ -28,6 +31,7 @@ html, body {
     }
 
     #map {
+        margin-top: 1%;
         margin-left: 10%;
         margin-right: 10%;
     }
