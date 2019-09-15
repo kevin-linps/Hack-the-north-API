@@ -55,6 +55,7 @@ class Customer:
 
         self.transactions = []
         self.transfers = []
+
         for i in range(len(data["result"])):
             if data["result"][i]["categoryTags"][0] in ["Food and Dining", "Shopping"]:
                 tr = Transaction.Transaction(data["result"][i], self.survey)

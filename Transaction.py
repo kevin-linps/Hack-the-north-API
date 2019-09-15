@@ -2,8 +2,12 @@ class Transaction:
 
     def __init__(self, data, survey): 
 
-        self.longitude  = data["locationLongitude"]
-        self.latitude   = data["locationLatitude"]
+        try:
+            self.longitude  = data["locationLongitude"]
+            self.latitude   = data["locationLatitude"]
+        except:
+            self.longitude  = 0
+            self.latitude   = 0
 
         if survey == False:
             self.country    = data["locationCountry"]
