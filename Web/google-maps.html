@@ -22,17 +22,18 @@
       'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDQlAiLCJ0ZWFtX2lkIjoiMDJkZTU0ZDQtY2ZkOC0zNGFkLThiNWYtYzZjODkwZDdjOTc5IiwiZXhwIjo5MjIzMzcyMDM2ODU0Nzc1LCJhcHBfaWQiOiI3ZjIwMDMyNy0xMjE1LTQ3NmUtODEwNy1jOWQzMmE3MGQ1M2QifQ.XsJpJCXbibxFPcS98rdsKa5mQFT4uK8XUwtZMycF_e8'
     } 
   };
-  var myRequest = new Request('https://api.td-davinci.com/api/customers/90f54a9f-9112-451b-b2f9-e5de6b16e0b0', myInit);
+  var myRequest = new Request('https://api.td-davinci.com/api/customers/abea2e58-13aa-4f74-8816-4da6960fe2bf', myInit);
   var jsonResponse ='test';
-  var uluru;
+  var uluru = {lat: -50.344, lng: 231.036};
 
 
   function myFunc() {
   fetch(myRequest)
     .then(response => response.json())
     .then(json => {uluru = {lat: json.result.addresses.principalResidence.latitude, lng: json.result.addresses.principalResidence.longitude};})
-    .then(value => (alert("goodbye")));
-    .then()
+    .then(value => initMap())
+    .then(value => alert("hello"))
+    
 }
 myFunc();
 //alert(jsonResponse);
@@ -61,7 +62,7 @@ function initMap() {
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
-    <script async defer
+    <script async="false" defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXqpOye7ErVZlJrXSOXaj1ZlxSimO1HGw&callback=initMap">
     </script>
   </body>
